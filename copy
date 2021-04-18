@@ -1,0 +1,130 @@
+
+
+" ########  ##       ##     ##  ######   #### ##    ##  ######  
+" ##     ## ##       ##     ## ##    ##   ##  ###   ## ##    ## 
+" ##     ## ##       ##     ## ##         ##  ####  ## ##       
+" ########  ##       ##     ## ##   ####  ##  ## ## ##  ######  
+" ##        ##       ##     ## ##    ##   ##  ##  ####       ## 
+" ##        ##       ##     ## ##    ##   ##  ##   ### ##    ## 
+" ##        ########  #######   ######   #### ##    ##  ######  
+
+call plug#begin('/home/shohan/.config/nvim')
+  
+   Plug 'sheerun/vim-polyglot'
+   Plug 'vim-airline/vim-airline'
+   Plug 'easymotion/vim-easymotion'
+   Plug 'tpope/vim-commentary'
+   Plug 'tpope/vim-surround'
+   Plug 'mhinz/vim-startify'
+   Plug 'sirver/ultisnips'
+   Plug 'jlanzarotta/bufexplorer'
+   Plug 'Townk/vim-autoclose'
+   Plug 'gioele/vim-autoswap'
+   Plug 'flazz/vim-colorschemes'
+   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " this is for auto complete, prettier and tslinting
+
+   let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']  " list of CoC extensions needed
+
+   Plug 'jiangmiao/auto-pairs' "this will auto close ( [ {
+
+   " these two plugins will add highlighting and indenting to JSX and TSX files.
+   Plug 'yuezk/vim-js'
+   Plug 'HerringtonDarkholme/yats.vim'
+   Plug 'maxmellon/vim-jsx-pretty'
+call plug#end()
+
+
+
+"  #######  ########  ######## ####  #######  ##    ##  ######  
+" ##     ## ##     ##    ##     ##  ##     ## ###   ## ##    ## 
+" ##     ## ##     ##    ##     ##  ##     ## ####  ## ##       
+" ##     ## ########     ##     ##  ##     ## ## ## ##  ######  
+" ##     ## ##           ##     ##  ##     ## ##  ####       ## 
+" ##     ## ##           ##     ##  ##     ## ##   ### ##    ## 
+"  #######  ##           ##    ####  #######  ##    ##  ######  
+
+
+let g:python3_host_prog='/usr/bin/python3'
+let g:loaded_python_provider = 0            
+let g:mapleader=',' " Set <Leader> to ',' key.
+colorscheme gruvbox
+syntax on " enable syntax highlighting
+set number " displays the line numbers
+set relativenumber " displays relative line number
+set laststatus=2 " always display status bar
+set hidden
+set autoread " autoload when changes occur
+set autoindent " keep indentation from previous line
+set expandtab " use custom tabs
+set linebreak " don't break in the middle of a word
+set title " make terminal title == the opened file
+set incsearch " display search results as you type
+set ignorecase " when searching, ignore case
+set smartcase " override ignorecase when search has a caps char
+set hlsearch " highlight search results
+set updatecount=50 " update file swaps after 50 characters
+set termguicolors " enble 24 bit rgb color
+set guifont=Fira\h12 " set the font
+set encoding=utf8 " set the file encoding
+set errorformat=%A%f:%l:\ %m,%-Z%p^,%-C%.%# " Set how errors are displayed on the quicklist
+
+" enable scrolloff/scrollside to 5 
+if !&scrolloff
+  set scrolloff=5
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+set display+=lastline
+
+
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 1
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 1
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+autocmd FileType apache setlocal commentstring=#\ %s
+
+
+map <Space> <Plug>(easymotion-bd-w)
+xmap <Space> <Plug>(easymotion-t)
+
+" <C-H><C-J><C-W><C-L> to switch windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" <Leader> <v> for new vertical view
+map <Leader>v :vnew<CR>
+
+" <Leader> <u> for new horiontal view
+map <Leader>h :new<CR>
+
+"<leader> <q> to force quit window
+map <Leader>q :q!<CR>
+
+" press jj in insert mode to <ESC>
+inoremap jj <ESC> 
+
+"<Leader> <S> to do a global replace on the file
+nmap  S  :%s//g<LEFT><LEFT>
+
+"<Leader> <M> replace the current text while searching
+nmap <expr>  M  ':%s/' . @/ . '//g<LEFT><LEFT>'
+
+"<Leader> <b> find instances in file 
+nnoremap <Leader>b :g//#<Left><Left>
+
+" disbale search highlighting with backspace
+nmap <silent> <BS> :nohlsearch<CR> 
